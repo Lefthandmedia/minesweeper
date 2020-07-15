@@ -7,6 +7,14 @@ var flags      = [];
 var cells      = [];
 var bomsfound  = 0;
 
+const init = () => {
+  bombs = [];
+  cells = [];
+  makegrid(gridsize);
+  placebombs(bombamount);
+  countAllbombs();
+}
+
 const makegrid = (a) => {
   for (let i = 0; i <= a - 1; i++) {
     let row = document.createElement("DIV");
@@ -37,7 +45,6 @@ const placebombs = (bombamount) => {
     let bomb = cells[y][x];
     bomb.classList.add('bomb');
     bomb.setAttribute('data-bomb', true)
-    // });
     bombs.push(bomb);
   }
 }
@@ -63,10 +70,6 @@ const iswinning = () => {
   console.log('found amount', found.length);
 }
 
-//maak een functie
-// het aantal flag en aantal bombflags worden getelt
-// en als het > bombamount is dan kan je niet meer met rechtermuis klik klikken
-
 
 const countAllbombs = () => {
   let cells = root.querySelectorAll('.mine-cell');
@@ -80,7 +83,8 @@ const onClick = (evt) => {
   let bomb = (cell.classList.contains('bomb'));
   if (!cell.classList.contains('flag')) {
     if (bomb) {
-      alert('LOSER');
+      alert('  GAME OVER\nYou hit a bomb.');
+
       revealbombs(cell);
     } else {
       checkcell(cell);
@@ -146,11 +150,22 @@ const revealbombs = () => {
   bombs.forEach((bomb) => {
     bomb.classList.add('bombrevealed')
   })
-  
+  setTimeout(function () {
+    if (window.confirm("Retry?")) {
+      reset();
+    }
+  }, 3000);
+
 }
 
-makegrid(gridsize);
-placebombs(bombamount);
-countAllbombs();
+const reset = () => {
+  const grid = document.getElementById('grid');
+  while (grid.firstChild) {
+    grid.removeChild(grid.lastChild);
+  }
+  init();
+}
+
+init();
 
 
