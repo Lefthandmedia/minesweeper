@@ -9,7 +9,10 @@ $cellsize:25px;
   }
 
   .mine-cell{
-    border: 1px solid #000;
+    border-top: 1px solid #aaa;
+    border-right: 1px solid #aaa;
+    border-bottom: 1px solid #000;
+    border-left: 1px solid #000;
     margin:1px;
     width:$cellsize;
     height:$cellsize;
@@ -23,16 +26,16 @@ $cellsize:25px;
   }
 
   .bomb{
-    //border: 3px solid red;
+    border: 3px solid red;
 
   }
   .bombrevealed{
-    background-color: #990000;
+    background-color: #ff0000;
     background-image:  url('/assets/svg/bomb.svg');
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center  center;
-    border: 3px solid red;
+
   }
   .closed{
     background-color: #bbb;
@@ -45,7 +48,11 @@ $cellsize:25px;
     background-color: #fff;
   }
   .flag{
-    border: 2px solid #00F;
+    border: 1px solid #00F;
+    background-image:  url('/assets/svg/flag.svg');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center  center;
   }
 
 

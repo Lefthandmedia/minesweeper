@@ -1,15 +1,25 @@
 var root = document.getElementById('grid');
 
 var gridsize   = 18;
-var bombamount = 40;
+var bombamount = 50;
 var bombs      = [];
 var flags      = [];
 var cells      = [];
 var bomsfound  = 0;
 
+//dubbele bommen weghalen
+
+//aantal vlaggen
+
+//counter
+
+//difficulty selecter
+
 const init = () => {
-  bombs = [];
-  cells = [];
+  bombs   = [];
+  cells   = [];
+  let amt = document.getElementById('amount').value;
+  (amt > 0) ? gridsize = amt : gridsize = gridsize;
   makegrid(gridsize);
   placebombs(bombamount);
   countAllbombs();
@@ -40,19 +50,50 @@ const makegrid = (a) => {
 
 const placebombs = (bombamount) => {
   for (let i = 0; i <= bombamount - 1; i++) {
-    let x    = Math.floor(Math.random() * gridsize);
-    let y    = Math.floor(Math.random() * gridsize);
-    let bomb = cells[y][x];
-    bomb.classList.add('bomb');
-    bomb.setAttribute('data-bomb', true)
+    let bomb = addbomb();
     bombs.push(bomb);
+
   }
 }
 
+const addbomb = () => {
+  let x = Math.floor(Math.random() * gridsize);
+  let y = Math.floor(Math.random() * gridsize);
+  let bomb;
+  // console.log('bombs',bombs);
+  if (newbomb(x, y)) {
+    bomb = cells[y][x];
+    bomb.classList.add('bomb');
+    bomb.setAttribute('data-bomb', true);
+  } else {
+    bomb = addbomb();
+  }
+
+  return bomb;
+}
+
+const newbomb = (x, y) => {
+  bombs.forEach((bomb) => {
+    if (+bomb.dataset.x === x && +bomb.dataset.y === y) {
+      return false
+    }
+  });
+  return true;
+};
+
+
 const setFlag = (evt) => {
-  let cell = evt.target;
+  let cell  = evt.target;
+  let flags = root.querySelectorAll('.flag');
+
   if (cell.classList.contains('closed')) {
-    (cell.classList.contains('flag')) ? cell.classList.remove('flag') : cell.classList.add('flag');
+    if (cell.classList.contains('flag')) {
+      cell.classList.remove('flag');
+    } else {
+      if (flags.length < bombamount)
+        cell.classList.add('flag');
+    }
+
   }
 
   bombs.forEach((bomb) => {
@@ -67,7 +108,12 @@ const setFlag = (evt) => {
 
 const iswinning = () => {
   let found = root.querySelectorAll('.bombflag');
-  console.log('found amount', found.length);
+  if (found.length === bombamount) {
+    alert("You have won");
+    if (window.confirm("Retry?")) {
+      reset();
+    }
+  }
 }
 
 
@@ -166,6 +212,8 @@ const reset = () => {
   init();
 }
 
-init();
+document.getElementById('startBtn').addEventListener('click', reset);
+
+
 
 
