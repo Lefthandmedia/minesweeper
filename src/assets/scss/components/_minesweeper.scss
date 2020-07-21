@@ -1,5 +1,8 @@
 /* scss */
 $cellsize:25px;
+ body{
+   background-color: lightgray;
+ }
 
 #grid{
 
@@ -9,10 +12,10 @@ $cellsize:25px;
   }
 
   .mine-cell{
-    border-top: 1px solid #aaa;
-    border-right: 1px solid #aaa;
-    border-bottom: 1px solid #000;
-    border-left: 1px solid #000;
+    border-top: 2px solid white;
+    border-left: 2px solid white;
+    border-right: 2px solid gray;
+    border-bottom: 2px solid gray;
     margin:1px;
     width:$cellsize;
     height:$cellsize;
@@ -31,7 +34,7 @@ $cellsize:25px;
   }
   .bombrevealed{
     background-color: #ff0000;
-    background-image:  url('/assets/svg/bomb.svg');
+    background-image:  url('/assets/svg/beterebomb.svg');
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center  center;
@@ -48,11 +51,19 @@ $cellsize:25px;
     background-color: #fff;
   }
   .flag{
-    border: 1px solid #00F;
     background-image:  url('/assets/svg/flag.svg');
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center  center;
+  }
+  .nummer1{
+    color: blue;
+  }
+  .nummer2{
+    color: green;
+  }
+  .nummer3{
+    color: red;
   }
 
 

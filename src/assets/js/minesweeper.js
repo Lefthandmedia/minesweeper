@@ -1,7 +1,7 @@
 var root = document.getElementById('grid');
 
-var gridsize   = 18;
-var bombamount = 50;
+var stdgridsize  = 18;
+var stdbombamount = 10;
 var bombs      = [];
 var flags      = [];
 var cells      = [];
@@ -19,8 +19,10 @@ const init = () => {
   bombs   = [];
   cells   = [];
   let amt = document.getElementById('amount').value;
-  (amt > 0) ? gridsize = amt : gridsize = gridsize;
+  (amt > 0) ? gridsize = amt : gridsize = stdgridsize;
   makegrid(gridsize);
+  let bmt = document.getElementById('bommenamount').value;
+  (bmt > 0) ? bombamount = bmt : bombamount = stdbombamount;
   placebombs(bombamount);
   countAllbombs();
 }
@@ -52,8 +54,8 @@ const placebombs = (bombamount) => {
   for (let i = 0; i <= bombamount - 1; i++) {
     let bomb = addbomb();
     bombs.push(bomb);
-
   }
+  console.log('CHECKbombs=', bombs.length, root.querySelectorAll('.bomb').length);
 }
 
 const addbomb = () => {
@@ -108,7 +110,8 @@ const setFlag = (evt) => {
 
 const iswinning = () => {
   let found = root.querySelectorAll('.bombflag');
-  if (found.length === bombamount) {
+  console.log('iswinning', found.length, +bombamount);
+  if (found.length === +bombamount) {
     alert("You have won");
     if (window.confirm("Retry?")) {
       reset();
@@ -159,7 +162,11 @@ const checkcell = (cell) => {
             buur.classList.add('getal');
             buur.classList.remove('closed');
             buur.innerText = buur.dataset.amount;
+            buur.classList.add(`nummer${buur.dataset.amount}`)
           }
+          // if (+buur.dataset.amount === 1 && buur.classList.contains('open') && !buur.classList.contains('flag')) {
+          //    buur.classList.add('nummer1');
+          //  }
         }
       }
     }
@@ -187,11 +194,11 @@ const checkneighbours = (cell) => {
 const revealbombs = () => {
   let all = root.querySelectorAll('.mine-cell');
   all.forEach((cell) => {
-    cell.classList.add('open');
-    cell.classList.remove('closed');
-    if (cell.dataset.amount > 0) {
-      cell.innerText = cell.dataset.amount;
-    }
+    // cell.classList.add('open');
+    // cell.classList.remove('closed');
+    // if (cell.dataset.amount > 0) {
+    //   cell.innerText = cell.dataset.amount;
+    // }
   });
   bombs.forEach((bomb) => {
     bomb.classList.add('bombrevealed')
