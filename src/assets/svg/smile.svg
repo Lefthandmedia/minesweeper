@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="28px" height="28px" viewBox="0 0 28 28" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 63.1 (92452) - https://sketch.com -->
+    <title>smile</title>
+    <desc>Created with Sketch.</desc>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="smile" transform="translate(1.000000, 1.000000)">
+            <rect id="Rectangle" stroke="#D7D7D7" fill="#D7D7D7" x="0" y="0" width="25" height="25"></rect>
+            <line x1="25.1091029" y1="0.504391829" x2="24.8953028" y2="25.0034589" id="Line-2" stroke="#979797" stroke-width="2" stroke-linecap="square" transform="translate(24.551288, 13.004392) rotate(-1.000000) translate(-24.551288, -13.004392) "></line>
+            <line x1="13.1066526" y1="13.002408" x2="12.3933474" y2="37.497116" id="Line-2" stroke="#979797" stroke-width="2" stroke-linecap="square" transform="translate(12.750000, 25.249762) rotate(89.500000) translate(-12.750000, -25.249762) "></line>
+            <circle id="Oval" stroke="#000000" fill="#FFF000" cx="12" cy="12" r="10"></circle>
+            <circle id="Oval" stroke="#000000" fill="#000000" cx="8.5" cy="8.5" r="1.5"></circle>
+            <circle id="Oval" stroke="#000000" fill="#000000" cx="15.5" cy="8.5" r="1.5"></circle>
+            <path d="M7.5559082,15.4108887 C8.51863607,17.3116048 10,18.2619629 12,18.2619629 C14,18.2619629 15.5477702,17.3116048 16.6433105,15.4108887" id="Line-3" stroke="#1F1D21" stroke-linecap="square"></path>
+        </g>
+    </g>
+</svg>

@@ -7,13 +7,6 @@ var flags      = [];
 var cells      = [];
 var bomsfound  = 0;
 
-//dubbele bommen weghalen
-
-//aantal vlaggen
-
-//counter
-
-//difficulty selecter
 
 const init = () => {
   bombs   = [];
@@ -54,6 +47,7 @@ const placebombs = (bombamount) => {
   for (let i = 0; i <= bombamount - 1; i++) {
     let bomb = addbomb();
     bombs.push(bomb);
+    console.log('index',i , bomb.dataset.x, bomb.dataset.y);
   }
   console.log('CHECKbombs=', bombs.length, root.querySelectorAll('.bomb').length);
 }
@@ -68,9 +62,9 @@ const addbomb = () => {
     bomb.classList.add('bomb');
     bomb.setAttribute('data-bomb', true);
   } else {
+    console.log('allready exists', x ,y);
     bomb = addbomb();
   }
-
   return bomb;
 }
 
@@ -110,7 +104,6 @@ const setFlag = (evt) => {
 
 const iswinning = () => {
   let found = root.querySelectorAll('.bombflag');
-  console.log('iswinning', found.length, +bombamount);
   if (found.length === +bombamount) {
     alert("You have won");
     if (window.confirm("Retry?")) {
@@ -133,7 +126,6 @@ const onClick = (evt) => {
   if (!cell.classList.contains('flag')) {
     if (bomb) {
       alert('  GAME OVER\nYou hit a bomb.');
-
       revealbombs(cell);
     } else {
       checkcell(cell);
@@ -164,9 +156,6 @@ const checkcell = (cell) => {
             buur.innerText = buur.dataset.amount;
             buur.classList.add(`nummer${buur.dataset.amount}`)
           }
-          // if (+buur.dataset.amount === 1 && buur.classList.contains('open') && !buur.classList.contains('flag')) {
-          //    buur.classList.add('nummer1');
-          //  }
         }
       }
     }
