@@ -6,11 +6,13 @@ var bombs      = [];
 var flags      = [];
 var cells      = [];
 var bomsfound  = 0;
+var time = 0;
 
 
 const init = () => {
   bombs   = [];
   cells   = [];
+  time = 0;
   let amt = document.getElementById('amount').value;
   (amt > 0) ? gridsize = amt : gridsize = stdgridsize;
   makegrid(gridsize);
@@ -18,6 +20,10 @@ const init = () => {
   (bmt > 0) ? bombamount = bmt : bombamount = stdbombamount;
   placebombs(bombamount);
   countAllbombs();
+  setInterval(()=>{
+    time++;
+    document.getElementById('tijd').innerText = `${time} seconden`;
+  },1500);
 }
 
 const makegrid = (a) => {
@@ -89,7 +95,6 @@ const setFlag = (evt) => {
       if (flags.length < bombamount)
         cell.classList.add('flag');
     }
-
   }
 
   bombs.forEach((bomb) => {
@@ -98,7 +103,8 @@ const setFlag = (evt) => {
     } else if (cell.dataset.x == bomb.dataset.x && cell.dataset.y == bomb.dataset.y && !cell.classList.contains('bombflag') && cell.classList.contains('closed')) {
       cell.classList.add('bombflag');
     }
-  })
+  });
+  document.getElementById('flagamount').innerText = bombamount - root.querySelectorAll('.flag').length;
   iswinning();
 }
 
