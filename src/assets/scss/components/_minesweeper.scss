@@ -1,51 +1,140 @@
 /* scss */
-$cellsize:25px;
-
-#grid{
-
-  .mine-row{
-    display: flex;
-    justify-content: flex-start;
-  }
-
-  .mine-cell{
-    border: 1px solid #000;
-    margin:1px;
-    width:$cellsize;
-    height:$cellsize;
-    cursor: pointer;
-    font-size: rem-calc(12);
-    padding:0;
-    line-height: 0;
-    text-align: center;
-    vertical-align: middle;
-    line-height: $cellsize;
-  }
-
-  .bomb{
-    //border: 3px solid red;
-
-  }
-  .bombrevealed{
-    background-color: #990000;
-    background-image:  url('/assets/svg/bomb.svg');
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center  center;
-  }
-  .closed{
-    background-color: #bbb;
-  }
-  .open{
-    background-color: #fff;
-  }
-  .getal{
-    font-weight: bold;
-    background-color: #fff;
-  }
-  .flag{
-    border: 2px solid #00F;
-  }
-
-
+$cellsize: 25px;
+body {
+  background-color: lightgray;
 }
+
+#minesweeper {
+  #startBtn {
+    background-color: transparent;
+    background-image: url('/assets/svg/smile.svg');
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    height: 50px;
+    width: 50px;
+
+    &:hover {
+      background-color: white;
+    }
+  }
+
+  .gridcontainer{
+    display: inline-block;
+    //text-align: center;
+  }
+
+
+
+  #grid {
+    margin:20px;
+
+
+    .mine-row {
+      display: flex;
+      justify-content: flex-start;
+    }
+
+    .mine-cell {
+      border-bottom: 2px solid gray;
+      border-left: 2px solid white;
+      border-right: 2px solid gray;
+      border-top: 2px solid white;
+      cursor: pointer;
+      font-size: rem-calc(12);
+      height: $cellsize;
+      line-height: 0;
+      line-height: $cellsize;
+      margin: 1px;
+      padding: 0;
+      text-align: center;
+      vertical-align: middle;
+      width: $cellsize;
+    }
+
+    .bomb {
+      border: 3px solid red;
+
+    }
+
+    .bombrevealed {
+      background-color: #ff0000;
+      background-image: url('/assets/svg/beterebomb.svg');
+      background-position: center center;
+      background-repeat: no-repeat;
+      background-size: contain;
+
+    }
+
+    .closed {
+      background-color: #bbb;
+    }
+
+    .open {
+      background-color: #fff;
+    }
+
+    .getal {
+      background-color: #fff;
+      font-weight: bold;
+    }
+
+    .flag {
+      background-image: url('/assets/svg/flag.svg');
+      background-position: center center;
+      background-repeat: no-repeat;
+      background-size: contain;
+    }
+
+    .nummer1 {
+      color: blue;
+    }
+
+    .nummer2 {
+      color: green;
+    }
+
+    .nummer3 {
+      color: red;
+    }
+    .nummer4 {
+      color: darkblue;
+    }
+    .nummer5{
+      color:darkred;
+    }
+    .nummer6{
+      color: darkcyan;
+    }
+    .nummer7{
+      color: black;
+    }
+    .nummer8{
+      color: gray;
+    }
+
+
+  }
+
+  .dashboard {
+    margin:20px;
+    //border: 1px solid #000;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  //.tijden{
+  //  background-color: black;
+  //  color: red;
+  //}
+  //
+  //.vlaggentjes{
+  //  background-color: black;
+  //  color: red;
+  //}
+
+  .settings{
+    margin:20px;
+  }
+}
+

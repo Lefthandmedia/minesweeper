@@ -1,11 +1,30 @@
 var root = document.getElementById('grid');
 
-var gridsize   = 18;
-var bombamount = 40;
+var stdgridsize  = 18;
+var stdbombamount = 10;
 var bombs      = [];
 var flags      = [];
 var cells      = [];
 var bomsfound  = 0;
+var time = 0;
+
+
+const init = () => {
+  bombs   = [];
+  cells   = [];
+  time = 0;
+  let amt = document.getElementById('amount').value;
+  (amt > 0) ? gridsize = amt : gridsize = stdgridsize;
+  makegrid(gridsize);
+  let bmt = document.getElementById('bommenamount').value;
+  (bmt > 0) ? bombamount = bmt : bombamount = stdbombamount;
+  placebombs(bombamount);
+  countAllbombs();
+  setInterval(()=>{
+    time++;
+    document.getElementById('tijd').innerText = `${time} seconden`;
+  },1500);
+}
 
 const makegrid = (a) => {
   for (let i = 0; i <= a - 1; i++) {
@@ -32,20 +51,50 @@ const makegrid = (a) => {
 
 const placebombs = (bombamount) => {
   for (let i = 0; i <= bombamount - 1; i++) {
-    let x    = Math.floor(Math.random() * gridsize);
-    let y    = Math.floor(Math.random() * gridsize);
-    let bomb = cells[y][x];
-    bomb.classList.add('bomb');
-    bomb.setAttribute('data-bomb', true)
-    // });
+    let bomb = addbomb();
     bombs.push(bomb);
+    console.log('index',i , bomb.dataset.x, bomb.dataset.y);
   }
+  console.log('CHECKbombs=', bombs.length, root.querySelectorAll('.bomb').length);
 }
 
+const addbomb = () => {
+  let x = Math.floor(Math.random() * gridsize);
+  let y = Math.floor(Math.random() * gridsize);
+  let bomb;
+  // console.log('bombs',bombs);
+  if (newbomb(x, y)) {
+    bomb = cells[y][x];
+    bomb.classList.add('bomb');
+    bomb.setAttribute('data-bomb', true);
+  } else {
+    console.log('allready exists', x ,y);
+    bomb = addbomb();
+  }
+  return bomb;
+}
+
+const newbomb = (x, y) => {
+  bombs.forEach((bomb) => {
+    if (+bomb.dataset.x === x && +bomb.dataset.y === y) {
+      return false
+    }
+  });
+  return true;
+};
+
+
 const setFlag = (evt) => {
-  let cell = evt.target;
+  let cell  = evt.target;
+  let flags = root.querySelectorAll('.flag');
+
   if (cell.classList.contains('closed')) {
-    (cell.classList.contains('flag')) ? cell.classList.remove('flag') : cell.classList.add('flag');
+    if (cell.classList.contains('flag')) {
+      cell.classList.remove('flag');
+    } else {
+      if (flags.length < bombamount)
+        cell.classList.add('flag');
+    }
   }
 
   bombs.forEach((bomb) => {
@@ -54,18 +103,20 @@ const setFlag = (evt) => {
     } else if (cell.dataset.x == bomb.dataset.x && cell.dataset.y == bomb.dataset.y && !cell.classList.contains('bombflag') && cell.classList.contains('closed')) {
       cell.classList.add('bombflag');
     }
-  })
+  });
+  document.getElementById('flagamount').innerText = bombamount - root.querySelectorAll('.flag').length;
   iswinning();
 }
 
 const iswinning = () => {
   let found = root.querySelectorAll('.bombflag');
-  console.log('found amount', found.length);
+  if (found.length === +bombamount) {
+    alert("You have won");
+    if (window.confirm("Retry?")) {
+      reset();
+    }
+  }
 }
-
-//maak een functie
-// het aantal flag en aantal bombflags worden getelt
-// en als het > bombamount is dan kan je niet meer met rechtermuis klik klikken
 
 
 const countAllbombs = () => {
@@ -80,7 +131,7 @@ const onClick = (evt) => {
   let bomb = (cell.classList.contains('bomb'));
   if (!cell.classList.contains('flag')) {
     if (bomb) {
-      alert('LOSER');
+      alert('  GAME OVER\nYou hit a bomb.');
       revealbombs(cell);
     } else {
       checkcell(cell);
@@ -109,6 +160,7 @@ const checkcell = (cell) => {
             buur.classList.add('getal');
             buur.classList.remove('closed');
             buur.innerText = buur.dataset.amount;
+            buur.classList.add(`nummer${buur.dataset.amount}`)
           }
         }
       }
@@ -137,20 +189,33 @@ const checkneighbours = (cell) => {
 const revealbombs = () => {
   let all = root.querySelectorAll('.mine-cell');
   all.forEach((cell) => {
-    cell.classList.add('open');
-    cell.classList.remove('closed');
-    if (cell.dataset.amount > 0) {
-      cell.innerText = cell.dataset.amount;
-    }
+    // cell.classList.add('open');
+    // cell.classList.remove('closed');
+    // if (cell.dataset.amount > 0) {
+    //   cell.innerText = cell.dataset.amount;
+    // }
   });
   bombs.forEach((bomb) => {
     bomb.classList.add('bombrevealed')
   })
-  
+  setTimeout(function () {
+    if (window.confirm("Retry?")) {
+      reset();
+    }
+  }, 3000);
+
 }
 
-makegrid(gridsize);
-placebombs(bombamount);
-countAllbombs();
+const reset = () => {
+  const grid = document.getElementById('grid');
+  while (grid.firstChild) {
+    grid.removeChild(grid.lastChild);
+  }
+  init();
+}
+
+document.getElementById('startBtn').addEventListener('click', reset);
+
+
 
 

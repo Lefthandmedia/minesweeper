@@ -1,6 +1,40 @@
----
+<div id="minesweeper">
+  <div class="grid-x grid-margin-x">
 
----
+    <div class="cell medium-6 large-4">
+
+      <div class="settings">
+        <label for="amount">
+          <input type="text" id="amount" placeholder="aantal vakjes">
+        </label>
+
+        <label for="bommenamount">
+          <input type="text" id="bommenamount" placeholder="aantal bommen">
+        </label>
+      </div>
+    </div>
 
 
-<div id="grid" oncontextmenu="return false;" ></div>
+    <div class="cell medium-6 large-8 ">
+      <div class="gridcontainer">
+        <div class="dashboard">
+          <div class="vlaggentjes">vlaggen
+            <div id="flagamount">0</div>
+          </div>
+          <div>
+            <button id="startBtn" class="button"></button>
+          </div>
+          <div class="tijden">  tijd
+            <div id="tijd" >0</div>
+          </div>
+        </div>
+
+        <div id="grid" oncontextmenu="return false;"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+</div>
+</div>
