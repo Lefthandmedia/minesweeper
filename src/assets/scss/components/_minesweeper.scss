@@ -7,7 +7,7 @@ body {
 #minesweeper {
   #startBtn {
     background-color: transparent;
-    background-image: url('/assets/svg/smile.svg');
+    background-image: url("/assets/svg/smile.svg");
     background-position: center center;
     background-repeat: no-repeat;
     background-size: contain;
@@ -19,16 +19,13 @@ body {
     }
   }
 
-  .gridcontainer{
+  .gridcontainer {
     display: inline-block;
     //text-align: center;
   }
 
-
-
   #grid {
-    margin:20px;
-
+    margin: 20px;
 
     .mine-row {
       display: flex;
@@ -54,16 +51,14 @@ body {
 
     .bomb {
       border: 3px solid red;
-
     }
 
     .bombrevealed {
       background-color: #ff0000;
-      background-image: url('/assets/svg/beterebomb.svg');
+      background-image: url("/assets/svg/beterebomb.svg");
       background-position: center center;
       background-repeat: no-repeat;
       background-size: contain;
-
     }
 
     .closed {
@@ -80,7 +75,7 @@ body {
     }
 
     .flag {
-      background-image: url('/assets/svg/flag.svg');
+      background-image: url("/assets/svg/flag.svg");
       background-position: center center;
       background-repeat: no-repeat;
       background-size: contain;
@@ -100,41 +95,34 @@ body {
     .nummer4 {
       color: darkblue;
     }
-    .nummer5{
-      color:darkred;
+    .nummer5 {
+      color: darkred;
     }
-    .nummer6{
+    .nummer6 {
       color: darkcyan;
     }
-    .nummer7{
+    .nummer7 {
       color: black;
     }
-    .nummer8{
+    .nummer8 {
       color: gray;
     }
-
-
   }
 
   .dashboard {
-    margin:20px;
     //border: 1px solid #000;
     display: flex;
     justify-content: space-between;
+    margin: 20px;
   }
 
-  //.tijden{
-  //  background-color: black;
-  //  color: red;
-  //}
-  //
-  //.vlaggentjes{
-  //  background-color: black;
-  //  color: red;
-  //}
+  .test {
+    display: none;
+    margin: 0;
+    padding: 0;
+  }
 
-  .settings{
-    margin:20px;
+  .settings {
+    margin: 20px;
   }
 }
-
