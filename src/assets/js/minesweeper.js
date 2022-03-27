@@ -83,7 +83,6 @@ const newbomb = (x, y) => {
   return true;
 };
 
-
 const setFlag = (evt) => {
   let cell  = evt.target;
   let flags = root.querySelectorAll('.flag');
@@ -117,7 +116,6 @@ const iswinning = () => {
     }
   }
 }
-
 
 const countAllbombs = () => {
   let cells = root.querySelectorAll('.mine-cell');
