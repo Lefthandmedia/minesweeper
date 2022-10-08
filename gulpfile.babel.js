@@ -12,10 +12,12 @@ import webpackStream from 'webpack-stream';
 import webpack2      from 'webpack';
 import named         from 'vinyl-named';
 import autoprefixer  from 'autoprefixer';
-import imagemin      from 'gulp-imagemin';
+import imagemin from 'gulp-imagemin';
+import gulpsass from 'gulp-sass'
+import dartsass from 'sass'
 
 
-const sass = require('gulp-sass');
+const sass = gulpsass(dartsass);
 const postcss = require('gulp-postcss');
 const uncss = require('postcss-uncss');
 
@@ -103,7 +105,7 @@ function sassBuild() {
     .pipe(sass({
       includePaths: PATHS.sass
     })
-    .on('error', $.sass.logError))
+    .on('error', sass.logError))
     .pipe(postcss(postCssPlugins))
     .pipe($.if(PRODUCTION, $.cleanCss({ compatibility: 'ie11' })))
     .pipe($.if(!PRODUCTION, $.sourcemaps.write()))
