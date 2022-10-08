@@ -7,12 +7,15 @@ var flags      = [];
 var cells      = [];
 var bomsfound  = 0;
 var time = 0;
+var gameover = false;
+var timer;
 
 
 const init = () => {
   bombs   = [];
   cells   = [];
   time = 0;
+  gameover = false;
   let amt = document.getElementById('amount').value;
   (amt > 0) ? gridsize = amt : gridsize = stdgridsize;
   makegrid(gridsize);
@@ -20,7 +23,7 @@ const init = () => {
   (bmt > 0) ? bombamount = bmt : bombamount = stdbombamount;
   placebombs(bombamount);
   countAllbombs();
-  setInterval(()=>{
+   timer = setInterval(()=>{
     time++;
     document.getElementById('tijd').innerText = `${time} seconden`;
   },1500);
@@ -86,7 +89,7 @@ const newbomb = (x, y) => {
 const setFlag = (evt) => {
   let cell  = evt.target;
   let flags = root.querySelectorAll('.flag');
-
+  if (gameover) return;
   if (cell.classList.contains('closed')) {
     if (cell.classList.contains('flag')) {
       cell.classList.remove('flag');
@@ -127,10 +130,13 @@ const countAllbombs = () => {
 const onClick = (evt) => {
   let cell = evt.target;
   let bomb = (cell.classList.contains('bomb'));
+  if (gameover) return;
   if (!cell.classList.contains('flag')) {
     if (bomb) {
-      alert('  GAME OVER\nYou hit a bomb.');
+      alert('GAME OVER\nYou hit a bomb.' + '\nYou\'re time was ' + time + ' seconds.');
       revealbombs(cell);
+      gameover = true;
+      clearInterval(timer);
     } else {
       checkcell(cell);
     }
@@ -213,7 +219,3 @@ const reset = () => {
 }
 
 document.getElementById('startBtn').addEventListener('click', reset);
-
-
-
-
