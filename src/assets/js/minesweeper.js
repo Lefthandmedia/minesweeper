@@ -131,7 +131,7 @@ const onClick = (evt) => {
   let cell = evt.target;
   let bomb = (cell.classList.contains('bomb'));
   if (gameover) return;
-  if (!cell.classList.contains('flag')) {
+  if (!cell.classList.contains('flag') && !cell.classList.contains('getal')) {
     if (bomb) {
       alert('GAME OVER\nYou hit a bomb.' + '\nYou\'re time was ' + time + ' seconds.');
       revealbombs(cell);

@@ -12,6 +12,7 @@
   "dependencies": {
     "16": "0.0.2",
     "foundation-sites": "latest",
+    "gulp-update": "^0.0.2",
     "jquery": "^3.6.0",
     "motion-ui": "latest",
     "what-input": "^5.2.10"
@@ -24,6 +25,7 @@
     "babel-loader": "^8.2.2",
     "browser-sync": "^2.27.5",
     "fs": "^0.0.1-security",
+    "gulp": "^4.0.2",
     "gulp-babel": "^8.0.0",
     "gulp-clean-css": "^4.3.0",
     "gulp-cli": "^2.3.0",
@@ -39,7 +41,7 @@
     "js-yaml": "^4.1.0",
     "js-yaml-js-types": "^1.0.0",
     "node-sass": "^7.0.3",
-    "panini": "^0.1.1",
+    "panini": "^1.7.2",
     "postcss": "^8.3.11",
     "postcss-uncss": "^0.14.0",
     "rimraf": "^3.0.2",
