@@ -1,7 +1,10 @@
+import { data } from "jquery";
+
 var root = document.getElementById('grid');
 
 var stdgridsize  = 18;
 var stdbombamount = 10;
+var bombamount;
 var bombs      = [];
 var flags      = [];
 var cells      = [];
@@ -9,6 +12,7 @@ var bomsfound  = 0;
 var time = 0;
 var gameover = false;
 var timer;
+let gridsize;
 
 
 const init = () => {
@@ -17,12 +21,14 @@ const init = () => {
   time = 0;
   gameover = false;
   let amt = document.getElementById('amount').value;
-  (amt > 0) ? gridsize = amt : gridsize = stdgridsize;
+  gridsize =  (amt > 0) ?  amt : stdgridsize;
+  console.log('sixe',gridsize);
   makegrid(gridsize);
   let bmt = document.getElementById('bommenamount').value;
-  (bmt > 0) ? bombamount = bmt : bombamount = stdbombamount;
+  bombamount = (bmt > 0) ?  bmt :  stdbombamount;
   placebombs(bombamount);
   countAllbombs();
+  setStart(gridsize);
    timer = setInterval(()=>{
     time++;
     document.getElementById('tijd').innerText = `${time} seconden`;
@@ -56,7 +62,6 @@ const placebombs = (bombamount) => {
   for (let i = 0; i <= bombamount - 1; i++) {
     let bomb = addbomb();
     bombs.push(bomb);
-    console.log('index',i , bomb.dataset.x, bomb.dataset.y);
   }
   console.log('CHECKbombs=', bombs.length, root.querySelectorAll('.bomb').length);
 }
@@ -85,6 +90,23 @@ const newbomb = (x, y) => {
   });
   return true;
 };
+
+const setStart = (gridsize) => {
+  const x = Math.floor(Math.random()*gridsize);
+  const y = Math.floor(Math.random()*gridsize);
+  let cell = cells[x][y];
+  if (checkStart(x,y)) {
+    setStart();
+  } else {
+    cell.classList.add('start');
+  }
+  console.log('start',x,y, cell);
+}
+
+const checkStart = (x,y) => {
+  let cell = cells[x][y];
+  return cell.dataset.bomb;
+}
 
 const setFlag = (evt) => {
   let cell  = evt.target;
