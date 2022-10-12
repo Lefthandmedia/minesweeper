@@ -29,7 +29,7 @@ const init = () => {
   placebombs(bombamount);
   countAllbombs();
   setStart(gridsize);
-   timer = setInterval(()=>{
+  timer = setInterval(()=>{
     time++;
     document.getElementById('tijd').innerText = `${time} seconden`;
   },1000);
@@ -135,7 +135,7 @@ const setFlag = (evt) => {
 const iswinning = () => {
   let found = root.querySelectorAll('.bombflag');
   if (found.length === +bombamount) {
-    alert("You have won");
+    alert('You won Hoera!!' + '\nYou\'re time was ' + time + ' seconds.');
     // if (window.confirm("Retry?")) {
     //   reset();
     // }
