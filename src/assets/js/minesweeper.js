@@ -32,7 +32,7 @@ const init = () => {
    timer = setInterval(()=>{
     time++;
     document.getElementById('tijd').innerText = `${time} seconden`;
-  },1500);
+  },1000);
 }
 
 const makegrid = (a) => {
@@ -96,7 +96,7 @@ const setStart = (gridsize) => {
   const y = Math.floor(Math.random()*gridsize);
   let cell = cells[x][y];
   if (checkStart(x,y)) {
-    setStart();
+    setStart(gridsize);
   } else {
     cell.classList.add('start');
   }
@@ -136,9 +136,9 @@ const iswinning = () => {
   let found = root.querySelectorAll('.bombflag');
   if (found.length === +bombamount) {
     alert("You have won");
-    if (window.confirm("Retry?")) {
-      reset();
-    }
+    // if (window.confirm("Retry?")) {
+    //   reset();
+    // }
   }
 }
 
@@ -225,9 +225,9 @@ const revealbombs = () => {
     bomb.classList.add('bombrevealed')
   })
   setTimeout(function () {
-    if (window.confirm("Retry?")) {
-      reset();
-    }
+    // if (window.confirm("Retry?")) {
+    //   reset();
+    // }
   }, 3000);
 
 }
