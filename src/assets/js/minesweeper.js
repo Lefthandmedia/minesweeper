@@ -29,10 +29,6 @@ const init = () => {
   placebombs(bombamount);
   countAllbombs();
   setStart(gridsize);
-  timer = setInterval(()=>{
-    time++;
-    document.getElementById('tijd').innerText = `${time} seconden`;
-  },1000);
 }
 
 const makegrid = (a) => {
@@ -135,6 +131,8 @@ const setFlag = (evt) => {
 const iswinning = () => {
   let found = root.querySelectorAll('.bombflag');
   if (found.length === +bombamount) {
+    gameover = true;
+    clearInterval(timer);
     alert('You won Hoera!!' + '\nYou\'re time was ' + time + ' seconds.');
     // if (window.confirm("Retry?")) {
     //   reset();
@@ -151,6 +149,10 @@ const countAllbombs = () => {
 
 const onClick = (evt) => {
   let cell = evt.target;
+  timer = setInterval(()=>{
+    time++;
+    document.getElementById('tijd').innerText = `${time} seconden`;
+  },1000);
   let bomb = (cell.classList.contains('bomb'));
   if (gameover) return;
   if (!cell.classList.contains('flag') && !cell.classList.contains('getal')) {
@@ -214,6 +216,7 @@ const checkneighbours = (cell) => {
 
 const revealbombs = () => {
   let all = root.querySelectorAll('.mine-cell');
+  clearInterval(timer);
   all.forEach((cell) => {
     // cell.classList.add('open');
     // cell.classList.remove('closed');
@@ -224,16 +227,19 @@ const revealbombs = () => {
   bombs.forEach((bomb) => {
     bomb.classList.add('bombrevealed')
   })
-  setTimeout(function () {
-    // if (window.confirm("Retry?")) {
-    //   reset();
-    // }
-  }, 3000);
+  // setTimeout(function () {
+  //   // if (window.confirm("Retry?")) {
+  //   //   reset();
+  //   // }
+  // }, 3000);
 
 }
 
 const reset = () => {
-  const grid = document.getElementById('grid');
+  clearInterval(timer);
+  time = 0;
+  console.log("new game");
+  const grid = document.getElementById('grid'); 
   while (grid.firstChild) {
     grid.removeChild(grid.lastChild);
   }
