@@ -1,0 +1,116 @@
+<style>
+  HTML,
+  body {
+    height: 100%;
+  }
+
+  body {
+    display: flex;
+  }
+
+  .viewport {
+    width: 600px;
+    height: 400px;
+    background-color: #061455;
+    border: 1px solid #000;
+    margin: auto;
+    position: relative;
+    /* overflow: hidden; */
+  }
+
+  .hand {
+    width: 20px;
+    height: 100px;
+    background-color: red;
+    display: block;
+    position: absolute;
+    left: 50%;
+    bottom: -100px;
+    transform-origin: 0% 100%;
+    z-index: 10;
+  }
+
+  .light {
+    width: 350px;
+    height: 350px;
+    position: absolute;
+    z-index: 5;
+    top: 0;
+    left: 0;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.2620449547006303) 10%, rgba(6, 20, 85, 0) 50%);
+    transform-origin: -50% 50%;
+  }
+
+  .beam {
+    display: none;
+    transform-origin: 50% 100% 0;
+    transform: translateY(-134px);
+    position: relative;
+    top: -100%;
+    left: -200%;
+    width: 100px;
+    height: 200px;
+    background: conic-gradient(from 0deg at 50% 100%, rgba(255, 255, 255, 0.3), transparent, transparent, transparent, transparent, transparent, transparent, transparent, transparent, transparent, transparent, transparent, transparent, transparent, transparent, transparent, transparent, transparent, rgba(255, 255, 255, 0.3));
+  }
+</style>
+
+<div class="viewport">
+  <div class="hand">
+    <div class="beam"></div>
+
+  </div>
+</div>
+
+<div class="light"></div>
+
+<script>
+  let isMoving = true;
+  const hand = document.querySelector('.hand');
+  const light = document.querySelector('.light');
+
+  const angle = (originX, originY, targetX, targetY) => {
+    var dx = originX - targetX;
+    var dy = originY - targetY;
+
+    var theta = Math.atan2(-dy, -dx); // [0, Ⲡ] then [-Ⲡ, 0]; clockwise; 0° = east
+    theta *= 180 / Math.PI;           // [0, 180] then [-180, 0]; clockwise; 0° = east
+    if (theta < 0) theta += 360;      // [0, 360]; clockwise; 0° = east
+
+    return theta;
+  }
+
+  const positionLight = (x1, y1) => {
+    light.style.transform = `translate(${x1 - (350 / 2)}px, ${y1 - (350 / 2)}px)`
+  }
+
+  const rot = (x1, y1) => {
+    // console.log(hand.getBoundingClientRect());
+    const r = hand.getBoundingClientRect();
+    const x2 = r.x + (r.width / 2);
+    const y2 = r.bottom;
+    const x = x2 - x1;
+    const y = y2 - y1;
+    const a = angle(x1, y1, x2, y2);
+    const d = Math.hypot(x2 - x1, y2 - y1);
+    console.log((d / 5) - 50);
+    const ypercent = (d / 400) * 100;
+    hand.style.transformOrigin = `50% ${ypercent}px`;
+    hand.style.transform = `translate(0, -${(d / 5)}px) rotate(${a - 90}deg)`;
+  }
+  const handlemove = (evt) => {
+    // console.log(evt.x, evt.y);
+    rot(evt.x, evt.y);
+    positionLight(evt.x, evt.y);
+  }
+
+
+  document.addEventListener('click', function () {
+    if (isMoving) {
+      document.removeEventListener('mousemove', handlemove);
+      isMoving = false;
+    } else {
+      document.addEventListener('mousemove', handlemove);
+      isMoving = true;
+    }
+  });
+</script>
